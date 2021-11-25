@@ -1,44 +1,55 @@
-from typing import Any, List, Callable, Union
+def numbers(n : int):
+    if n < 0:
+        return
+    print(n)
+    numbers(n-1)
 
 
-class TreeNode:
-    value: Any
-    children: List['TreeNode']
 
-    def is_leaf(self) -> bool:
-        if self.children:
-            pass
+def fib(n : int):
+    if n == 0:
+        return 0
+    if n == 1:
+        return 1
 
-    def add(self, child: 'TreeNode') -> None:
-        self.children.append(child)
+    else:
+        return  fib(n-1) + fib(n-2)
 
-    def visit(self):
-        pass
+def power(num : int, n : int):
+    if(n == 0):
+        return 1
+    else:
 
-    def for_each_deep_first(self, visit: Callable[['TreeNode'], None]) -> None:
-        pass
+            return num * power(num, n-1)
 
-    def for_each_level_order(self, visit: Callable[['TreeNode'], None]) -> None:
-        pass
+def reverse(txt):
+    if len(txt) == 0:
+        return txt
+    else:
+        return reverse(txt[1:]) + txt[0]
 
-    def search(self, value: Any) -> Union['TreeNode', None]:
-        pass
-
-
-class Tree:
-    root: TreeNode
-
-    def add(self, value: Any, parent_name: Any) -> None:
-        pass
-
-    def for_each_level_order(self, visit: Callable[['TreeNode'], None]) -> None:
-        pass
-
-    def for_each_deep_first(self, visit: Callable[['TreeNode'], None]) -> None:
-        pass
-
-    def show(self):
-        pass
+def factorial(n:int):
+    if n == 0:
+        return 1
+    else:
+        return n*factorial(n-1)
 
 
-drzewo = Tree()
+def prime(n:int):
+
+    if n == 0:
+        return True
+    else:
+
+
+
+
+
+# n =18
+# numbers(n)
+# print(fib(n))
+# print(power(3, 3))
+# txt = '12345'
+# print(reverse(txt))
+# n = 5
+print(prime(19))
