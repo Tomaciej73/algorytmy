@@ -1,55 +1,103 @@
-def numbers(n : int):
-    if n < 0:
-        return
-    print(n)
-    numbers(n-1)
+from typing import Any, List, Callable, Union
+from anytree import Node, RenderTree
+from anytree.exporter import DotExporter
 
 
+class TreeNode:
+    value: Any
+    children: List['TreeNode']
 
-def fib(n : int):
-    if n == 0:
-        return 0
-    if n == 1:
-        return 1
+    def __init__(self, value):
+        self.value = value
+        self.children = []
 
-    else:
-        return  fib(n-1) + fib(n-2)
-
-def power(num : int, n : int):
-    if(n == 0):
-        return 1
-    else:
-
-            return num * power(num, n-1)
-
-def reverse(txt):
-    if len(txt) == 0:
-        return txt
-    else:
-        return reverse(txt[1:]) + txt[0]
-
-def factorial(n:int):
-    if n == 0:
-        return 1
-    else:
-        return n*factorial(n-1)
-
-
-def prime(n:int):
-
-    if n == 0:
+    def is_leaf(self):
+        if not len(self.children):
+            return False
         return True
-    else:
+
+    def add(self, child: 'TreeNode') -> None:
+        self.children.append(child)
+
+    def for_each_deep_first(self, visit: Callable[['TreeNode'], None]) -> None:
+        if visit:
+            return
+
+        visit(self)
+
+        for child in self.children:
+            self.for_each_deep_first(visit(child))
+
+    def for_each_level_order(self, visit: Callable[['TreeNode'], None]) -> None:
+        if visit:
+            return
+
+        visit(self)
+
+        fifo = self.children
+
+        while len(fifo):
+            print(fifo[0])
+            fifo += fifo[0]
+
+            del fifo[0]
+
+    def search(self, value: Any) -> Union['TreeNode', None]:
+        if self.value == value:
+            return self
+
+        search_node = None
+        for child in self.children:
+            output = child.search(value)
+
+            if output:
+                search_node = output
+
+        return search_node
+
+    def __str__(self):
+        return self.value
 
 
+class Tree:
+    root: TreeNode
+
+    def __init__(self, tree_node):
+        self.root = tree_node
+
+    def add(self, value: Any, parent_name: Any) -> None:
+        node = self.root.search(parent_name)
+
+        node.add(TreeNode(value))
+
+    def for_each_level_order(self, visit: Callable[['TreeNode'], None]) -> None:
+        self.root.for_each_level_order(visit)
+
+    def for_each_deep_first(self, visit: Callable[['TreeNode'], None]) -> None:
+        self.root.for_each_deep_first(visit)
+
+    def show(self):
+        root = Node(self.root.value)
+        a = Node("OW", root)
+
+        DotExporter(root).to_picture("tree.png")
 
 
+f = TreeNode("F")
+tree = Tree(f)
+b = TreeNode("B")
+f.add(b)
+a = TreeNode("A")
+b.add(a)
+d = TreeNode("D")
+b.add(d)
+c = TreeNode("C")
+d.add(c)
+e = TreeNode("E")
+d.add(e)
 
-# n =18
-# numbers(n)
-# print(fib(n))
-# print(power(3, 3))
-# txt = '12345'
-# print(reverse(txt))
-# n = 5
-print(prime(19))
+def test(k):
+    print(k)
+print(f.for_each_level_order(test(e)))
+
+Tree.show()
