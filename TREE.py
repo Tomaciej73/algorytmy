@@ -27,28 +27,28 @@ class TreeNode:
     def for_each_level_order(self, visit: Callable[['TreeNode'], None]) -> None:
         visit(self)
 
-        fifo = self.children
+        fifo = self.rodzic
         while len(fifo):
             visit(fifo[0])
             print(fifo[0])
-            fifo += fifo[0].children
+            fifo += fifo[0].rodzic
             del fifo[0]
 
     def get_level(self) -> int:
-        level = 0
+        poziom = 0
         p = self.parent
         while p:
-            level += 1
+            poziom += 1
             p = p.parent
-        return level
+        return poziom
 
     def print_tree(self):
-        spaces = ' ' * self.get_level() * 3
+        odstep = '|' * self.get_level() * 3
         if self.parent:
-            prefix = '-'
+            znaczek = '=>'
         else:
-            prefix = ''
-        print(spaces + prefix + self.value)
+            znaczek = ''
+        print(odstep + znaczek + self.value)
         if self.children:
             for child in self.children:
                 child.print_tree()
