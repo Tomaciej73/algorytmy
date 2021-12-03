@@ -1,4 +1,4 @@
-from typing import Any, Callable
+from typing import *
 
 
 class BinaryNode:
@@ -8,53 +8,51 @@ class BinaryNode:
 
     def __init__(self, value):
         self.value = value
-        self.right_child = None
         self.left_child = None
+        self.right_child = None
 
     def is_leaf(self):
-        if not self.left_child and not self.right_child:
+        if self.right_child is None and self.left_child is None:
             return True
         return False
 
     def add_left_child(self, value: Any):
         self.left_child = BinaryNode(value)
 
-        return self.left_child
-
     def add_right_child(self, value: Any):
         self.right_child = BinaryNode(value)
 
-        return self.right_child
+    def traverse_in_order(self):
+        if self.left_child is not None:
+            type(self).traverse_in_order(self.left_child)
+        print(self.value)
+        if self.right_child is not None:
+            type(self).traverse_in_order(self.right_child)
 
     def traverse_in_order(self, visit: Callable[[Any], None]):
-        if self.left_child:
+        if self.left_child is not None:
             self.left_child.traverse_in_order(visit)
-
         visit(self)
-
-        if self.right_child:
+        print(self.value)
+        if self.right_child is not None:
             self.right_child.traverse_in_order(visit)
 
     def traverse_post_order(self, visit: Callable[[Any], None]):
-        if self.left_child:
+        if self.left_child is not None:
             self.left_child.traverse_post_order(visit)
-
-        if self.right_child:
+        if self.right_child is not None:
             self.right_child.traverse_post_order(visit)
-
         visit(self)
+        print(self.value)
 
     def traverse_pre_order(self, visit: Callable[[Any], None]):
         visit(self)
-
-        if self.left_child:
+        print(self.value)
+        if self.left_child is not None:
             self.left_child.traverse_pre_order(visit)
-
-        if self.right_child:
+        if self.right_child is not None:
             self.right_child.traverse_pre_order(visit)
 
-    def __str__(self):
-        return self.value
 
 class BinaryTree:
     root: BinaryNode
@@ -72,39 +70,26 @@ class BinaryTree:
         self.root.traverse_pre_order(visit)
 
     def show(self):
-        obj = {}
+        pass
 
-        def show_visit(node):
-            if not node.is_leaf():
-                obj[node] = {}
-                obj[node]['children'] = [node.left_child, node.right_child]
 
-        tree.traverse_pre_order(show_visit)
-        print(obj)
+el_10 = BinaryNode(10)
+el_9 = BinaryNode(9)
+el_2 = BinaryNode(2)
+el_1 = BinaryNode(1)
+el_3 = BinaryNode(3)
+el_4 = BinaryNode(4)
+el_6 = BinaryNode(6)
 
-        for node_parent in obj:
-            if not obj[node_parent]['node']:
-                obj[node_parent]['node'] = Node(node_parent.value)
+el_10.left_child = el_9
+el_10.right_child = el_2
+el_9.left_child = el_1
+el_9.right_child = el_3
+el_2.left_child = el_4
+el_2.right_child = el_6
 
-            for child in obj[node_parent]['children']:
-                node_child = Node(node_parent.value)
-
-                if not obj[node_parent]['node']:
-                    obj[node_parent]['node'] =
-
-tree = BinaryTree(10)
-child_9 = tree.root.add_left_child(9)
-child_9_1 = child_9.add_left_child(1)
-child_9_3 = child_9.add_right_child(3)
-
-child_2 = tree.root.add_right_child(2)
-child_2_4 = child_2.add_left_child(4)
-child_2_6 = child_2.add_right_child(6)
-
-assert tree.root.value == 10
-assert tree.root.right_child.value == 2
-assert tree.root.right_child.is_leaf() is False
-assert tree.root.left_child.left_child.value == 1
-assert tree.root.left_child.left_child.is_leaf() is True
-
-tree.show()
+el_10.traverse_in_order(BinaryNode)
+print("-----------")
+el_10.traverse_post_order(BinaryNode)
+print("-----------")
+el_10.traverse_pre_order(BinaryNode)
