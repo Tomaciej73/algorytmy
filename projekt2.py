@@ -85,30 +85,30 @@ class BinaryTree:
 def bottom_line(root):
     if root is None:
         return
-    head = 0
-    poziom = dict()
-    queque = []
-    root.head = head
+    head = 0 #wartosc dla root ustawiona na 0
+    poziom = dict() #przechowuje pare kluczy jako wartosc
+    queque = [] #kolejka do wezlow drzewa 
+    root.head = head #przypisze wartosc do poziomu i przypisuje ja
     queque.append(root)
 
     while len(queque) != 0:
         help = queque[0]
         queque.pop(0)
-        head = help.head
-        poziom[head] = help
+        head = help.head #bierze wartosc z drzewa
+        poziom[head] = help #umieszcza wezel drzewa do kolejki
 
         if help.left_child is not None:
-            help.left_child.head = head - 1
-            queque.append(help.left_child)
+            help.left_child.head = head - 1 #przechodzi po poziomach jesli dziecko tu jest sprawdza poziom nizej
+            queque.append(help.left_child) #dodaj do kolejki lewe dziecko
 
         if help.right_child is not None:
-            help.right_child.head = head + 1
-            queque.append(help.right_child)
+            help.right_child.head = head + 1 #to samo co na gorze tylko dla prawego dziecko
+            queque.append(help.right_child) #dodaj do kolejki prawe dziecka
 
-    for i in sorted(meine.keys()):
-        print(poziom[i], end=' ')
-
-
+    for i in sorted(poziom.keys()):
+        print(poziom[i], end=' ') #slownik kluczow posortowany
+#gdy bedzie nowy poziom umieszcza dane wezla jako klucz 
+#Potem klucz jest wartoscia w ten sposob mozna zobaczyc najnizsze wartosci w drzewie
 one = BinaryNode(1)
 two = BinaryNode(2)
 three = BinaryNode(3)
