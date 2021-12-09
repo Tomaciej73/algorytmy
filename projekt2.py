@@ -86,7 +86,7 @@ def bottom_line(root):
     if root is None:
         return
     head = 0
-    meine = dict()
+    poziom = dict()
     queque = []
     root.head = head
     queque.append(root)
@@ -95,7 +95,7 @@ def bottom_line(root):
         help = queque[0]
         queque.pop(0)
         head = help.head
-        meine[head] = help
+        poziom[head] = help
 
         if help.left_child is not None:
             help.left_child.head = head - 1
@@ -106,7 +106,7 @@ def bottom_line(root):
             queque.append(help.right_child)
 
     for i in sorted(meine.keys()):
-        print(meine[i], end=' ')
+        print(poziom[i], end=' ')
 
 
 one = BinaryNode(1)
