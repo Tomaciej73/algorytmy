@@ -87,7 +87,7 @@ def bottom_line(root):
         return
     head = 0 #wartosc dla root ustawiona na 0
     poziom = dict() #przechowuje pare kluczy jako wartosc
-    queque = [] #kolejka do wezlow drzewa 
+    queque = [] #kolejka do wezlow drzewa
     root.head = head #przypisze wartosc do poziomu i przypisuje ja
     queque.append(root)
 
@@ -107,26 +107,39 @@ def bottom_line(root):
 
     for i in sorted(poziom.keys()):
         print(poziom[i], end=' ') #slownik kluczow posortowany
-#gdy bedzie nowy poziom umieszcza dane wezla jako klucz 
+#gdy bedzie nowy poziom umieszcza dane wezla jako klucz
 #Potem klucz jest wartoscia w ten sposob mozna zobaczyc najnizsze wartosci w drzewie
-one = BinaryNode(1)
-two = BinaryNode(2)
-three = BinaryNode(3)
-four = BinaryNode(4)
-fife = BinaryNode(5)
-seven = BinaryNode(7)
+one = BinaryNode(100)
+ten = BinaryNode(10)
+twenty = BinaryNode(20)
+twelvefife = BinaryNode(25)
 eight = BinaryNode(8)
-nine = BinaryNode(9)
+seventeen = BinaryNode(17)
+fifteen = BinaryNode(15)
+twentyone = BinaryNode(21)
+thirtyone = BinaryNode(31)
+fifethree = BinaryNode(53)
+fourty = BinaryNode(40)
+twentyfour = BinaryNode(24)
+seventy = BinaryNode(70)
+eightyone = BinaryNode(81)
+fourtyfife =BinaryNode(45)
+twentyfife = BinaryNode(25)
 
-one.add_left_child(two)
-two.add_left_child(four)
-two.add_right_child(fife)
-four.add_left_child(eight)
-four.add_right_child(nine)
-one.add_right_child(three)
-three.add_right_child(seven)
+one.add_right_child(fourtyfife)
+fourtyfife.add_left_child(fifethree)
+fourtyfife.add_right_child(seventy)
+seventy.add_right_child(twentyfour)
+seventy.add_left_child(eightyone)
+one.add_left_child(ten)
+ten.add_right_child(eight)
+ten.add_left_child(twenty)
+twenty.add_left_child(twentyfife)
+twenty.add_right_child(fifteen)
+fifteen.add_right_child(twentyone)
+fifteen.add_left_child(seventeen)
+twentyfife.add_left_child(fourty)
+twentyfife.add_right_child(thirtyone)
 
 tree = BinaryTree(one)
 bottom_line(tree.root)
-
-
